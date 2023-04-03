@@ -5,12 +5,12 @@ import telebot
 ##TOKEN DETAILS
 TOKEN = "TRON"
 
-BOT_TOKEN = "5934811528:AAEsKE2PrxPcwAEI95zo2ntz_WbyveCJpFE"
+BOT_TOKEN = "5934811528:AAEtZ0qdRly31qEfHWn4psXtWgYKhWw-zAc"
 PAYMENT_CHANNEL = "@trx_kspayments" #add payment channel here including the '@' sign
 OWNER_ID = 5461436967 #write owner's user id here.. get it from @MissRose_Bot by /id
-CHANNELS = ["@trx_kspayments","@get_rich_channel"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
+CHANNELS = ["@trx_kspayments","trxksgroup"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you can add as many channels here and also add the '@' sign before channel username
-Daily_bonus = 1 #Put daily bonus amount here!
+Daily_bonus = 0.5 #Put daily bonus amount here!
 Mini_Withdraw = 10  #remove 0 and add the minimum withdraw u want to set
 Per_Refer = 0.8 #add per refer bonus here
 
@@ -98,7 +98,7 @@ def start(message):
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
             text='🤼‍♂️ Joined', callback_data='check'))
-        msg_start = "*🍔 To Use This Bot You Need To Join This Channel - \n➡️ @ Fill your channels at line: 101 and 157*"
+        msg_start = "*🍔 To Use This Bot You Need To Join This Channel - \n➡️ @ 
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
    except:
@@ -116,7 +116,7 @@ def query_handler(call):
             user_id = call.message.chat.id
             user = str(user_id)
             bot.answer_callback_query(
-                callback_query_id=call.id, text='✅ You joined Now yu can earn money')
+                callback_query_id=call.id, text='✅ Ti u fute tani mundesh te bësh para')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             if user not in data['refer']:
                 data['refer'][user] = True
@@ -196,7 +196,7 @@ def send_text(message):
         json.dump(data, open('users.json', 'w'))
 
         ref_count = data['referred'][user]
-        ref_link = 'https://telegram.me/{}?start={}'.format(
+        ref_link = 'https://t.me/{}?start={}'.format(
             bot_name, message.chat.id)
         msg = ref_msg.format(ref_count, Per_Refer, TOKEN, ref_link)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
@@ -250,16 +250,16 @@ def send_text(message):
         bal = data['balance'][user]
         wall = data['wallet'][user]
         if wall == "none":
-            bot.send_message(user_id, "_❌ wallet Not set_",
+            bot.send_message(user_id, "_❌ Vallet not set_",
                              parse_mode="Markdown")
             return
         if bal >= Mini_Withdraw:
-            bot.send_message(user_id, "_Enter Your Amount_",
+            bot.send_message(user_id, "_Vendosni numrin qe doni ti terhekni_",
                              parse_mode="Markdown")
             bot.register_next_step_handler(message, amo_with)
         else:
             bot.send_message(
-                user_id, f"_❌Your balance low you should have at least {Mini_Withdraw} {TOKEN} to Withdraw_", parse_mode="Markdown")
+                user_id, f"_❌Balanca juaj nuk është 10 trx per withdraw {Mini_Withdraw} {TOKEN} to Withdraw_", parse_mode="Markdown")
             return
    except:
         bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
